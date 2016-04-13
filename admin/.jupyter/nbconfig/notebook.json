@@ -1,0 +1,10 @@
+{
+  "load_extensions": {
+    "nbgrader/create_assignment": true
+  },
+  "CodeCell": {
+    "cm_config": {
+      "indentUnit": 2
+    }
+  }
+}

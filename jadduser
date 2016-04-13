@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+file="$HOME/users/users.txt"
+while IFS=: read -r f1 f2
+do
+        printf 'uid: %s, user: %s\n' "$f1" "$f2"
+		useradd $f2 --uid $f1 --password niHYAA5jMRuFg \
+			--shell /bin/bash
+		cp -r $HOME/jhub/skel/. /home/$f1
+done <"$file"
+	
+
+# deluser --remove-all-files user &> /dev/null

@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+sudo apt-get update
+
+# Installation de JupyterHub
+sudo apt-get install -y python3-pip
+sudo apt-get install -y npm nodejs-legacy
+sudo npm install -g configurable-http-proxy
+sudo pip3 install jupyterhub
+
+# Installation de Jupyter
+sudo pip3 install jupyter
+
+# Installation de iocaml
+sudo apt-get install -y unzip m4 libffi6 libffi-dev libgmp-dev
+wget https://raw.github.com/ocaml/opam/master/shell/opam_installer.sh
+sh ./opam_installer.sh /usr/local/bin 4.02.1
+opam init -y --comp 4.02.1
+eval `opam config env`
+opam install -y depext
+opam depext conf-gmp.1
+opam depext conf-pkg-config.1.0
+opam depext conf-ncurses.1
+opam depext iocaml-kernel.0.4.8
+opam install -y iocaml
+opam install -y ocp-index
+#opam install -y ctypes
+#opam install -y core
+
+# Configuration de l'utilisateur admin
+cp -r jhub/skel/. $HOME
+cp -r jhub/admin/. $HOME
+mkdir $HOME/users
+cd jhub ; sudo jupyter kernelspec install iocaml
+echo "export JUPYTER_CONFIG_DIR=/$HOME/.jupyter" > jhubstart
+echo `opam config env` >> jhubstart
+echo jupyterhub >> jhubstart
+chmod +x jhubstart
+
+# Utilitaires
+sudo apt-get install -y whois    # mkpasswd
+sudo apt-get install -y mc
+
+
+
+
+	
