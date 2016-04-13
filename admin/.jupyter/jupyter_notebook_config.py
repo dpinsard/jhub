@@ -17,7 +17,7 @@ c.IPKernelApp.matplotlib = 'inline'
 # c.NotebookApp.mathjax_url = ''
 
 # The directory to use for notebooks.
-c.NotebookApp.notebook_dir = u'documents'
+#c.NotebookApp.notebook_dir = u'documents'
 
 # The IP address the notebook server will listen on.
 # c.NotebookApp.ip = '127.0.0.1'

@@ -2,15 +2,15 @@
 
 1. Créer une machine hôte Linux pour le serveur jhub.
 
-2. Créer un compte Linux admin sur cette machine.
+2. Créer un compte Linux administrateur sur cette machine.
 
-3. Éxécuter les commandes ci-dessous :
+3. Depuis le compte administrateur, exécuter les commandes ci-dessous :
 
 ```
 git clone https://github.com/dpinsard/jhub.git
-./jhub/jinstall
+jhub/jinstall
 ```
 
-4. Créer des comptes utilisateurs
+4. Créer des comptes utilisateurs.
 
-5. Lancer le serveur : ```./jhubstart```
+5. Lancer le serveur : ```sudo ./jhubstart```

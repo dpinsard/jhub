@@ -274,7 +274,7 @@ c.Spawner.env_keep = ['PATH', 'LANG', 'LC_ALL',
 #
 # `~` will be expanded to the user's home directory `%U` will be expanded to the
 # user's username
-#c.Spawner.notebook_dir = '~/documents'
+c.Spawner.notebook_dir = '~/documents'
 
 # An HTML form for options a user can specify on launching their server. The
 # surrounding `<form>` element and the submit button are already provided.
