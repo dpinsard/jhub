@@ -33,15 +33,18 @@ cp -r $HOME/jhub/iocaml $HOME
 sed -i -e "s#iocamlpath#$HOME#" $HOME/iocaml/kernel.json
 sudo jupyter kernelspec install iocaml
 rm -r $HOME/iocaml
-echo "export JUPYTER_CONFIG_DIR=/$HOME/.jupyter" > jhubstart
-echo `opam config env` >> jhubstart
-echo jupyterhub >> jhubstart
-chmod +x jhubstart
+echo "export JUPYTER_CONFIG_DIR=/$HOME/.jupyter" > jstart
+echo `opam config env` >> jstart
+echo jupyterhub >> jstart
+chmod +x jstart
 
 # Utilitaires
 sudo apt-get install -y mc
 
+# Scipy
+sudo apt-get install -y python3-numpy python3-matplotlib \
+                        python3-scipy python3-pandas
 
-
-
-	
+# ipython-sql
+sudo apt-get install -y sqlite3
+sudo pip3 install ipython-sql

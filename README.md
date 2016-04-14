@@ -13,4 +13,4 @@ jhub/jinstall
 
 4. Créer des comptes utilisateurs.
 
-5. Lancer le serveur : ```sudo ./jhubstart```
+5. Lancer le serveur : ```sudo ./jstart```
