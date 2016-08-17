@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if ! id "$1" >/dev/null 2>&1; then
+	sudo useradd $1 --password niHYAA5jMRuFg --create-home --shell /bin/bash  # Password turing
+	sudo usermod -a -G jupyhub $1
+	sudo cp -r /etc/jhub/skel/. /home/$1
+	sudo chown -R $1:$1 /home/$1
+fi

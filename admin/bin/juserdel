@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+sudo deluser --remove-all-files $1  &> /dev/null

@@ -3,8 +3,6 @@
  "language": "ocaml",
  "argv": [
   "iocamlpath/.opam/4.02.1/bin/iocaml.top",
-  "-log",
-  "tmp/iocaml.log",
   "-completion",
   "-object-info",
   "-connection-file",

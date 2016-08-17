@@ -111,7 +111,7 @@ c.JupyterHub.confirm_no_ssl = True
 # c.JupyterHub.cookie_secret = b''
 
 # File in which to store the cookie secret.
-# c.JupyterHub.cookie_secret_file = 'jupyterhub_cookie_secret'
+c.JupyterHub.cookie_secret_file = '/etc/jhub/jupyhub/jupyterhub_cookie_secret'
 
 # The location of jupyterhub data files (e.g. /usr/local/share/jupyter/hub)
 # c.JupyterHub.data_files_path = '/usr/local/share/jupyter/hub'
@@ -121,7 +121,7 @@ c.JupyterHub.confirm_no_ssl = True
 # c.JupyterHub.db_kwargs = {}
 
 # url for the database. e.g. `sqlite:///jupyterhub.sqlite`
-# c.JupyterHub.db_url = 'sqlite:///jupyterhub.sqlite'
+c.JupyterHub.db_url = 'sqlite:////etc/jhub/jupyhub/jupyterhub.sqlite'
 
 # log all database transactions. This has A LOT of output
 # c.JupyterHub.debug_db = False
@@ -148,7 +148,7 @@ c.JupyterHub.confirm_no_ssl = True
 # c.JupyterHub.hub_prefix = '/hub/'
 
 # The public facing ip of the whole application (the proxy)
-# c.JupyterHub.ip = ''
+c.JupyterHub.ip = 'localhost'
 
 # Supply extra arguments that will be passed to Jinja environment.
 # c.JupyterHub.jinja_environment_options = {}
@@ -163,7 +163,7 @@ c.JupyterHub.confirm_no_ssl = True
 # c.JupyterHub.pid_file = ''
 
 # The public facing port of the proxy
-c.JupyterHub.port = 8001
+#c.JupyterHub.port = 80
 
 # The ip for the proxy API handlers
 # c.JupyterHub.proxy_api_ip = '127.0.0.1'
@@ -191,16 +191,17 @@ c.JupyterHub.port = 8001
 #
 # Should be a subclass of Spawner.
 # c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
+c.JupyterHub.spawner_class = 'sudospawner.SudoSpawner'
 
 # Path to SSL certificate file for the public facing interface of the proxy
 #
 # Use with ssl_key
-# c.JupyterHub.ssl_cert = ''
+#c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/jhub.dichotomies.fr/cert.pem'
 
 # Path to SSL key file for the public facing interface of the proxy
 #
 # Use with ssl_cert
-# c.JupyterHub.ssl_key = ''
+#c.JupyterHub.ssl_key = '/etc/letsencrypt/live/jhub.dichotomies.fr/privkey.pem'
 
 # Run single-user servers on subdomains of this host.
 #
@@ -274,7 +275,7 @@ c.Spawner.env_keep = ['PATH', 'LANG', 'LC_ALL',
 #
 # `~` will be expanded to the user's home directory `%U` will be expanded to the
 # user's username
-c.Spawner.notebook_dir = '~/documents'
+# c.Spawner.notebook_dir = '~'
 
 # An HTML form for options a user can specify on launching their server. The
 # surrounding `<form>` element and the submit button are already provided.
@@ -333,7 +334,7 @@ c.Spawner.notebook_dir = '~/documents'
 # set of usernames of admin users
 #
 # If unspecified, only the user that launches the server will be admin.
-# c.Authenticator.admin_users = set()
+c.Authenticator.admin_users = {'vagrant'}
 
 # Dictionary mapping authenticator usernames to JupyterHub users.
 #
@@ -387,7 +388,7 @@ c.Spawner.notebook_dir = '~/documents'
 # c.LocalAuthenticator.create_system_users = False
 
 # Automatically whitelist anyone in this group.
-# c.LocalAuthenticator.group_whitelist = set()
+# c.LocalAuthenticator.group_whitelist = {}
 
 #------------------------------------------------------------------------------
 # PAMAuthenticator configuration

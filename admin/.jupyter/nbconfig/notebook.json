@@ -1,10 +1,10 @@
 {
   "load_extensions": {
-    "nbgrader/create_assignment": true
+  	 "jupyter-js-widgets/extension": true
   },
   "CodeCell": {
     "cm_config": {
-      "indentUnit": 2
+      "indentUnit": 4
     }
   }
 }

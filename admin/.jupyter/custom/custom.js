@@ -28,9 +28,9 @@ $([IPython.events]).on('app_initialized.NotebookApp', function(){
      *  here youcan also trigger a custom function on load that will do extra
      *  action with the module if needed
      **/
-     require(['custom/IPython-notebook-extensions/slidemode/main'],function(slidemode){
-    //     // do stuff
-     })
+    //  require(['custom/IPython-notebook-extensions/slidemode/main'],function(slidemode){
+    // //     // do stuff
+    //  })
 
 });
 

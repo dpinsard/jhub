@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+
+sudo apt-get update
+
+# Installation de JupyterHub
+sudo apt-get install -y python3-pip
+sudo apt-get install -y npm nodejs-legacy
+sudo npm install -g configurable-http-proxy
+sudo pip3 install jupyterhub
+
+# Installation de sudospawner
+sudo pip3 install git+https://github.com/jupyter/sudospawner
+
+# Installation de Jupyter
+sudo pip3 install jupyter
+
+# Installation de iocaml
+sudo apt-get install -y unzip m4 libffi6 libffi-dev libgmp-dev
+wget https://raw.github.com/ocaml/opam/master/shell/opam_installer.sh -O - | sh -s /usr/local/bin
+opam init -y --comp 4.02.1
+eval `opam config env`
+opam install -y depext
+opam depext conf-gmp.1
+opam depext conf-pkg-config.1.0
+opam depext conf-ncurses.1
+opam depext iocaml-kernel.0.4.8
+opam install -y iocaml
+opam install -y ocp-index
+
+# Installation de javascript
+sudo npm install -g ijavascript
+sudo cp -r $HOME/jhub/javascript /usr/local/share/jupyter/kernels/
+
+# Installation de nginx
+sudo apt-get install nginx
+sudo cp $HOME/jhub/nginx/nginx.conf /etc/nginx/
+
+# Création des dossiers des fichiers partagés par les utilisateurs
+sudo mkdir /etc/jhub
+sudo mkdir -p /usr/local/share/jhub
+
+# Dossier home template
+sudo cp -r $HOME/jhub/skel /etc/jhub/
+
+# Emplacement des fichiers jupyterhub_cookie_secret et jupyterhub.sqlite
+sudo mkdir /etc/jhub/jupyhub
+sudo chown jupyhub:jupyhub /etc/jhub/jupyhub
+
+# Copie des ressources Web partagées
+sudo cp -r $HOME/jhub/share/lib /usr/local/share/jhub/lib
+
+# Installation de reveal.js
+sudo git clone https://github.com/hakimel/reveal.js.git /usr/local/share/jhub/lib/reveal.js
+
+# Configuration de l'utilisateur admin
+cp -r $HOME/jhub/skel/. $HOME
+cp -r $HOME/jhub/admin/. $HOME
+cp -r $HOME/jhub/iocaml $HOME
+sed -i -e "s#iocamlpath#$HOME#" $HOME/iocaml/kernel.json
+sudo jupyter kernelspec install iocaml
+rm -r $HOME/iocaml
+echo "export JUPYTER_CONFIG_DIR=/$HOME/.jupyter" > jstart
+echo `opam config env` >> jstart
+echo jupyterhub >> jstart
+chmod +x jstart
+
+# Création de l'utilisateur jupyhub
+sudo useradd jupyhub
+sudo usermod -a -G shadow jupyhub
+
+# Utilitaires
+sudo apt-get install -y mc
+sudo apt-get install -y htop
+
+# Scipy
+sudo apt-get install -y python3-numpy python3-matplotlib \
+                        python3-scipy python3-pandas
+
+# ipython-sql
+sudo apt-get install -y sqlite3
+sudo pip3 install ipython-sql
+
+# Installation ffmpeg
+sudo apt-get install ffmpeg
+
+# Python extra packages
+sudo pip3 install line_profiler  # %lprun in Jupyter
+
+# Installation de ipywidgets
+sudo pip3 install ipywidgets==5.0.0  # Est-ce toujours utile ?
+jupyter nbextension enable --py widgetsnbextension
+
+# Ipython 5.0
+sudo pip3 install prompt_toolkit # Est-ce utile ?
+sudo pip3 install ipython --upgrade --pre
+
+
+
+# À COPIER DANS /etc/sudoers (via visudo) :
+
+# the command(s) the Hub can run on behalf of the above users without needing a password
+# the exact path may differ, depending on how sudospawner was installed
+# Cmnd_Alias JUPYTER_CMD = /usr/local/bin/sudospawner
+
+# actually give the Hub user permission to run the above command on behalf
+# of the above users without prompting for a password
+# jupyhub ALL=(%jupyhub) NOPASSWD:JUPYTER_CMD
